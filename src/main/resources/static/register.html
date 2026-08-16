@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Register Customers</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            background: #f4f4f4;
+            padding: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+
+        h1 {
+            color: #2d3748;
+        }
+
+
+        h2 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+
+        /* =========================
+           COURIER BADGE
+        ========================= */
+
+        .courier-badge {
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+
+        .badge-evri {
+            background: #6E41B3;
+        }
+
+
+        .badge-royal-mail {
+            background: #C8102E;
+        }
+
+
+        .badge-dpd {
+            background: #FF6A00;
+            color: #000;
+        }
+
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+
+        /* =========================
+           BACK BUTTON
+        ========================= */
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2b6cb0;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           FORM
+        ========================= */
+
+        label {
+            display: block;
+            margin: 10px 0 6px;
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 16px;
+        }
+
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+
+        input:focus {
+            outline: none;
+            border-color: #2b6cb0;
+            box-shadow: 0 0 0 2px rgba(43,108,176,0.1);
+        }
+
+
+        /* =========================
+           SAVE BUTTON
+        ========================= */
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #2b6cb0;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 17px;
+            font-weight: bold;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+
+        .submit-btn:hover {
+            background: #2c5282;
+        }
+
+
+        .submit-btn:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+        }
+
+
+        /* =========================
+           MESSAGE
+        ========================= */
+
+        .message {
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+
+        .success {
+            background: #f0fff4;
+            color: #22543d;
+        }
+
+
+        .error {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+
+        /* =========================
+           WARNING
+        ========================= */
+
+        .full-warning {
+            background: #fed7d7;
+            color: #742a2a;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            display: none;
+        }
+
+
+        /* =========================
+           SEARCH
+        ========================= */
+
+        .search-container {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+
+        .search-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #4a5568;
+        }
+
+
+        .search-box {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+
+        /* =========================
+           TABLE
+        ========================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+        }
+
+
+        th {
+            background: #edf2f7;
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+
+        tbody tr:hover {
+            background: #f7fafc;
+        }
+
+
+        .serial-number {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+
+        .parcel-count {
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        .refresh-btn {
+            padding: 8px 16px;
+            background: #48bb78;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+
+        .refresh-btn:hover {
+            background: #38a169;
+        }
+
+
+        .pickup-btn {
+            background: #e53e3e;
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+
+        .pickup-btn:hover {
+            background: #c53030;
+        }
+
+
+        .pickup-btn:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+        }
+
+
+        /* =========================
+           OTHER
+        ========================= */
+
+        .count-info {
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+
+        .empty {
+            color: #718096;
+            text-align: center;
+            padding: 25px;
+        }
+
+
+        .loading {
+            text-align: center;
+            padding: 25px;
+            color: #4a5568;
+        }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<a
+        href="index.html"
+        class="back-btn"
+>
+
+    ← Change Courier
+
+</a>
+
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<div class="header-bar">
+
+    <h1>Register Customer</h1>
+
+    <div
+            id="courierBadge"
+            class="courier-badge">
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     REGISTER FORM
+========================= -->
+
+<div class="card">
+
+    <form id="customerForm">
+
+        <label for="name">
+            Customer Name
+        </label>
+
+
+        <input
+                type="text"
+                id="name"
+                required
+                autocomplete="off"
+                placeholder="Type customer name..."
+        >
+
+
+        <button
+                type="submit"
+                class="submit-btn"
+                id="submitBtn"
+        >
+
+            💾 Save & Add Next
+
+        </button>
+
+
+        <div
+                id="fullWarning"
+                class="full-warning"
+        >
+
+            ⚠️ All 50 serial numbers are in use for this courier.
+
+        </div>
+
+
+        <div
+                id="formMessage"
+                class="message">
+        </div>
+
+    </form>
+
+</div>
+
+
+
+<!-- =========================
+     CUSTOMER LIST
+========================= -->
+
+<div class="card">
+
+    <h2 id="listTitle">
+        Customers List
+    </h2>
+
+
+    <p
+            id="countInfo"
+            class="count-info">
+    </p>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-container">
+
+        <label
+                for="searchName"
+                class="search-label"
+        >
+            🔍 Search Customer by Name
+        </label>
+
+
+        <input
+                type="text"
+                id="searchName"
+                class="search-box"
+                placeholder="Search customer name..."
+                autocomplete="off"
+        >
+
+    </div>
+
+
+    <button
+            class="refresh-btn"
+            id="refreshBtn"
+    >
+
+        🔄 Refresh List
+
+    </button>
+
+
+    <div id="customersList">
+
+        <p class="loading">
+            Loading customers...
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+    // ==================================================
+    // BACKEND
+    // ==================================================
+
+    const BASE_URL =
+        "";
+
+
+    let selectedCourier = "";
+
+
+    // Store backend response
+    let allCustomers = [];
+
+
+
+    // ==================================================
+    // DATE FORMAT
+    // ==================================================
+
+    function formatDate(dateString) {
+
+        if (!dateString) {
+            return "-";
+        }
+
+        const date =
+            new Date(dateString);
+
+        return date.toLocaleString();
+    }
+
+
+
+    // ==================================================
+    // PAGE LOAD
+    // ==================================================
+
+    window.onload =
+        function () {
+
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+
+            selectedCourier =
+                params.get("courier");
+
+
+            if (!selectedCourier) {
+
+                alert(
+                    "⚠️ No courier selected!"
+                );
+
+                window.location.href =
+                    "index.html";
+
+                return;
+            }
+
+
+            // ----------------------------
+            // BADGE
+            // ----------------------------
+
+            const badge =
+                document.getElementById(
+                    "courierBadge"
+                );
+
+
+            badge.textContent =
+                selectedCourier;
+
+
+            if (
+                selectedCourier === "Evri"
+            ) {
+
+                badge.classList.add(
+                    "badge-evri"
+                );
+
+            }
+
+            else if (
+                selectedCourier === "Royal Mail"
+            ) {
+
+                badge.classList.add(
+                    "badge-royal-mail"
+                );
+
+            }
+
+            else if (
+                selectedCourier === "DPD"
+            ) {
+
+                badge.classList.add(
+                    "badge-dpd"
+                );
+
+            }
+
+
+            // ----------------------------
+            // TITLE
+            // ----------------------------
+
+            document
+                .getElementById(
+                    "listTitle"
+                )
+                .textContent =
+                `${selectedCourier} — Customers`;
+
+
+            fetchAllCustomers();
+
+        };
+
+
+
+    // ==================================================
+    // SAVE CUSTOMER / PARCEL
+    // ==================================================
+
+    document
+        .getElementById(
+            "customerForm"
+        )
+        .addEventListener(
+
+            "submit",
+
+            async function (event) {
+
+
+                event.preventDefault();
+
+
+                const nameInput =
+                    document.getElementById(
+                        "name"
+                    );
+
+
+                const msgBox =
+                    document.getElementById(
+                        "formMessage"
+                    );
+
+
+                const submitBtn =
+                    document.getElementById(
+                        "submitBtn"
+                    );
+
+
+                const warningBox =
+                    document.getElementById(
+                        "fullWarning"
+                    );
+
+
+                const customerName =
+                    nameInput
+                        .value
+                        .trim();
+
+
+                if (!customerName) {
+
+                    msgBox.style.display =
+                        "block";
+
+                    msgBox.className =
+                        "message error";
+
+                    msgBox.textContent =
+                        "❌ Please enter customer name.";
+
+                    return;
+                }
+
+
+                try {
+
+
+                    submitBtn.disabled =
+                        true;
+
+
+                    submitBtn.textContent =
+                        "Saving...";
+
+
+                    const customerData = {
+
+                        name:
+                        customerName,
+
+                        parcelType:
+                        selectedCourier
+
+                    };
+
+
+                    const response =
+                        await fetch(
+
+                            `/save`,
+
+                            {
+
+                                method:
+                                    "POST",
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json"
+
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        customerData
+                                    )
+
+                            }
+
+                        );
+
+
+                    const message =
+                        await response.text();
+
+
+
+                    if (response.ok) {
+
+
+                        warningBox.style.display =
+                            "none";
+
+
+                        msgBox.style.display =
+                            "block";
+
+
+                        msgBox.className =
+                            "message success";
+
+
+                        /*
+                         Backend now returns something like:
+
+                         John is assigned to Serial No. 5 for Royal Mail
+                        */
+
+                        msgBox.textContent =
+                            "✅ " + message;
+
+
+                        nameInput.value =
+                            "";
+
+
+                        nameInput.focus();
+
+
+                        await fetchAllCustomers();
+
+                    }
+
+                    else {
+
+
+                        msgBox.style.display =
+                            "block";
+
+
+                        msgBox.className =
+                            "message error";
+
+
+                        msgBox.textContent =
+                            "❌ " + message;
+
+                    }
+
+
+                }
+
+                catch (error) {
+
+
+                    console.error(
+                        "Save error:",
+                        error
+                    );
+
+
+                    msgBox.style.display =
+                        "block";
+
+
+                    msgBox.className =
+                        "message error";
+
+
+                    msgBox.textContent =
+                        "❌ Failed to connect to backend";
+
+
+                }
+
+                finally {
+
+
+                    submitBtn.disabled =
+                        false;
+
+
+                    submitBtn.textContent =
+                        "💾 Save & Add Next";
+
+                }
+
+            }
+
+        );
+
+
+
+    // ==================================================
+    // FETCH CUSTOMERS
+    // ==================================================
+
+    async function fetchAllCustomers() {
+
+
+        const container =
+            document.getElementById(
+                "customersList"
+            );
+
+
+        container.innerHTML = `
+
+            <p class="loading">
+
+                Loading ${selectedCourier} customers...
+
+            </p>
+
+        `;
+
+
+        try {
+
+
+            const response =
+                await fetch(
+
+                    `/getAllCustomers/${encodeURIComponent(selectedCourier)}`
+
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    `HTTP Error ${response.status}`
+                );
+
+            }
+
+
+            allCustomers =
+                await response.json();
+
+
+            console.log(
+                "Customers:",
+                allCustomers
+            );
+
+
+            displayCustomers(
+                allCustomers
+            );
+
+
+        }
+
+        catch (error) {
+
+
+            console.error(
+                "Fetch error:",
+                error
+            );
+
+
+            container.innerHTML = `
+
+                <p
+                    class="empty"
+                    style="color:red;"
+                >
+
+                    ⚠️ Failed to load customers.
+
+                </p>
+
+            `;
+
+        }
+
+    }
+
+
+
+    // ==================================================
+    // DISPLAY CUSTOMER TABLE
+    // ==================================================
+
+    function displayCustomers(customers) {
+
+
+        const container =
+            document.getElementById(
+                "customersList"
+            );
+
+
+        const countInfo =
+            document.getElementById(
+                "countInfo"
+            );
+
+
+        countInfo.textContent =
+            `Showing ${customers.length} customer(s)`;
+
+
+        if (
+            !customers ||
+            customers.length === 0
+        ) {
+
+
+            container.innerHTML = `
+
+                <p class="empty">
+
+                    No matching ${selectedCourier}
+                    customers found.
+
+                </p>
+
+            `;
+
+
+            return;
+
+        }
+
+
+
+        let html = `
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Serial No.
+                            </th>
+
+                            <th>
+                                Customer Name
+                            </th>
+
+                            <th>
+                                No. of Parcels
+                            </th>
+
+                            <th>
+                                Courier
+                            </th>
+
+                            <th>
+                                Last Accepted Date
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+        `;
+
+
+
+        customers.forEach(
+
+            function (customer) {
+
+
+                html += `
+
+                    <tr>
+
+                        <td>
+
+                            <span class="serial-number">
+
+                                ${
+                    customer.serialNumber
+                    ?? "-"
+                }
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            ${
+                    customer.customerName
+                    ?? "-"
+                }
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="parcel-count">
+
+                                ${
+                    customer.count
+                    ?? 0
+                }
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            ${
+                    customer.parcelTypeName
+                    ?? "-"
+                }
+
+                        </td>
+
+
+                        <td>
+
+                            ${
+                    formatDate(
+                        customer.lastAcceptedDate
+                    )
+                }
+
+                        </td>
+
+
+                        <td>
+
+                            <button
+
+                                class="pickup-btn"
+
+                                onclick="markPickedUp(
+                                    '${encodeURIComponent(customer.parcelTypeName)}',
+                                    ${customer.serialNumber}
+                                )"
+
+                            >
+
+                                ✅ Picked Up
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+
+        );
+
+
+        html += `
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        `;
+
+
+        container.innerHTML =
+            html;
+
+    }
+
+
+
+    // ==================================================
+    // SEARCH BY NAME
+    // ==================================================
+
+    document
+        .getElementById(
+            "searchName"
+        )
+        .addEventListener(
+
+            "input",
+
+            function () {
+
+
+                const searchText =
+                    this
+                        .value
+                        .trim()
+                        .toLowerCase();
+
+
+                if (
+                    searchText === ""
+                ) {
+
+
+                    displayCustomers(
+                        allCustomers
+                    );
+
+
+                    return;
+
+                }
+
+
+                const filteredCustomers =
+
+                    allCustomers.filter(
+
+                        function (customer) {
+
+
+                            if (
+                                !customer.customerName
+                            ) {
+
+                                return false;
+
+                            }
+
+
+                            return customer
+                                .customerName
+                                .toLowerCase()
+                                .includes(
+                                    searchText
+                                );
+
+                        }
+
+                    );
+
+
+                displayCustomers(
+                    filteredCustomers
+                );
+
+            }
+
+        );
+
+
+
+    // ==================================================
+    // PICKED UP
+    // ==================================================
+
+    window.markPickedUp =
+        async function (
+            parcelTypeName,
+            serialNumber
+        ) {
+
+
+            /*
+             parcelTypeName comes encoded from button.
+
+             Royal Mail
+             becomes
+             Royal%20Mail
+            */
+
+
+            const decodedParcelType =
+                decodeURIComponent(
+                    parcelTypeName
+                );
+
+
+            const confirmed =
+                confirm(
+
+                    `Mark this customer as Picked Up?\n\n` +
+
+                    `Courier: ${decodedParcelType}\n` +
+
+                    `Serial No: ${serialNumber}\n\n` +
+
+                    `All parcels under this serial number will be removed.`
+
+                );
+
+
+            if (!confirmed) {
+
+                return;
+
+            }
+
+
+            try {
+
+
+                /*
+                 NEW API:
+
+                 DELETE
+                 /pickedUp/{parcelTypeName}/{serialNumber}
+
+                 Example:
+
+                 /pickedUp/Royal%20Mail/5
+                */
+
+
+                const response =
+                    await fetch(
+
+                        `/pickedUp/${encodeURIComponent(decodedParcelType)}/${serialNumber}`,
+
+                        {
+
+                            method:
+                                "DELETE"
+
+                        }
+
+                    );
+
+
+                const message =
+                    await response.text();
+
+
+                // ----------------------------
+                // BACKEND ERROR
+                // ----------------------------
+
+                if (!response.ok) {
+
+
+                    throw new Error(
+                        message ||
+                        "Pickup failed"
+                    );
+
+                }
+
+
+                // ----------------------------
+                // SUCCESS
+                // ----------------------------
+
+                alert(
+                    message
+                );
+
+
+                /*
+                 Clear search so refreshed list
+                 displays everything again.
+                */
+
+                document
+                    .getElementById(
+                        "searchName"
+                    )
+                    .value =
+                    "";
+
+
+                document
+                    .getElementById(
+                        "fullWarning"
+                    )
+                    .style
+                    .display =
+                    "none";
+
+
+                // Reload latest database result
+                await fetchAllCustomers();
+
+
+            }
+
+            catch (error) {
+
+
+                console.error(
+                    "Pickup error:",
+                    error
+                );
+
+
+                alert(
+
+                    "❌ Failed to mark customer as picked up.\n\n"
+                    +
+                    error.message
+
+                );
+
+            }
+
+        };
+
+
+
+    // ==================================================
+    // REFRESH
+    // ==================================================
+
+    document
+        .getElementById(
+            "refreshBtn"
+        )
+        .addEventListener(
+
+            "click",
+
+            function () {
+
+
+                document
+                    .getElementById(
+                        "searchName"
+                    )
+                    .value =
+                    "";
+
+
+                fetchAllCustomers();
+
+            }
+
+        );
+
+
+</script>
+
+
+</body>
+
+</html>

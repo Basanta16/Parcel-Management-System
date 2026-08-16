@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parcel Management — Select Courier</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #f4f4f4;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+    }
+    h1 {
+      color: #2d3748;
+      margin-bottom: 50px;
+      text-align: center;
+    }
+    .courier-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      max-width: 900px;
+      width: 100%;
+    }
+    @media(max-width: 700px) {
+      .courier-grid { grid-template-columns: 1fr; gap: 20px; }
+    }
+    .courier-card {
+      padding: 40px 30px;
+      border-radius: 14px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+      border: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .courier-card.evri { background: #6E41B3; }
+    .courier-card.royalmail { background: #C8102E; }
+    .courier-card.dpd { background: #FF6A00; color: #000; }
+    .courier-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+<h1>📦 Select Courier Service</h1>
+
+<div class="courier-grid">
+  <button class="courier-card evri" onclick="goToRegister('Evri')">Evri</button>
+  <button class="courier-card royalmail" onclick="goToRegister('Royal Mail')">Royal Mail</button>
+  <button class="courier-card dpd" onclick="goToRegister('DPD')">DPD</button>
+</div>
+
+<script>
+  function goToRegister(courierType) {
+    window.location.href = `register.html?courier=${encodeURIComponent(courierType)}`;
+  }
+</script>
+</body>
+</html>
